@@ -31,13 +31,12 @@ This Docker Compose configuration file, "docker-compose.yml," defines a multi-co
 The "volumes" section defines a volume named "persistent" for persistent data storage.
 
 # Dockerfile Summary
-The Dockerfile defines the instructions to build a custom container image. In this case:
+This Dockerfile builds and prepares a container image in the Docker Compose setup.
 
-1. It starts with the base image "php:8.0.0-apache."
-2. Sets the "DEBIAN_FRONTEND" argument to "noninteractive" to prevent user interactions during package installation.
-3. Installs the "mysqli" extension for PHP.
-4. Updates the system and installs packages related to compression and necessary ZIP libraries.
-5. Configures the "zip" extension for PHP.
-6. Enables the Apache module "rewrite."
+ - It starts with the base image "php:8.0.0-apache."
+ - Sets the "DEBIAN_FRONTEND" argument to "noninteractive" to prevent user interactions during package installation.
+ - Installs the "mysqli" extension for PHP.
+ - Updates the system and installs packages related to compression and necessary ZIP libraries.
+ - Configures the "zip" extension for PHP.
+ - Enables the Apache module "rewrite."
 
-This Dockerfile prepares a container image with a PHP and Apache environment specifically configured for the "www" web service in the Docker Compose setup.
