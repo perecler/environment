@@ -1,0 +1,47 @@
+version: "3.1"
+
+services:
+    # Servei web
+    www:
+        build: .
+        ports: 
+            - "80:80"  # Port d'exposició del contenidor:port del host
+        volumes:
+            - ./html:/var/www/html  # Mapeig de volum: carpeta del host:carpeta del contenidor
+        links:
+            - db  # Enllaç amb el servei de base de dades
+        networks:
+            - default  # Xarxa del contenidor
+
+    # Base de dades
+    db:
+        image: mysql:8.0
+        ports: 
+            - "3306:3306"  # Port d'exposició del contenidor:port del host
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: facturacio
+            MYSQL_USER: pcler
+            MYSQL_PASSWORD: Arquimedes@XXI
+            MYSQL_ROOT_PASSWORD: Arquimedes@XXI
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d  # Mapeig de volum per a l'importació de dades inicial
+            # - ./conf:/etc/mysql/conf.d  # Mapeig de volum per a la configuració de MySQL
+            - persistent:/var/lib/mysql  # Mapeig de volum per a les dades persistents
+        networks:
+            - default  # Xarxa del contenidor
+
+    # phpMyAdmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links: 
+            - db:db  # Enllaç amb el servei de base de dades
+        ports:
+            - 8000:80  # Port d'exposició del contenidor:port del host
+        environment:
+            MYSQL_USER: pcler
+            MYSQL_PASSWORD: Arquimedes@XXI
+            MYSQL_ROOT_PASSWORD: Arquimedes@XXI
+
+volumes:
+    persistent:  # Nom del volum per a les dades persistents
