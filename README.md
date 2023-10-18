@@ -33,7 +33,7 @@ The "volumes" section defines a volume named "persistent" for persistent data st
 # Dockerfile Summary
 This Dockerfile builds and prepares a container image in the Docker Compose setup.
 
-- **www (Web Service):**
+- **Apache Debian (Web Service):**
  - It starts with the base image "php:8.0.0-apache."
  - Sets the "DEBIAN_FRONTEND" argument to "noninteractive" to prevent user interactions during package installation.
  - Installs the "mysqli" extension for PHP.
